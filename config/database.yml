@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  host: localhost
+  database: find_me_development
+  pool: 5
+  timeout: 5000
+  username: bohdan
+  password: 'qwerty'
+  port: 5432
+  primary:
+
+test:
+  adapter: postgresql
+  host: localhost
+  encoding: unicode
+  database: find_me_test
+  pool: 5
+  username: bohdan
+  password: 'qwerty'
+  port: 5432
+  timeout: 5000

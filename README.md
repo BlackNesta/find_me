@@ -1,25 +1,11 @@
-# README
+# TASK:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Start service first and then you will be able to find your tasks.
 
-Things you may want to cover:
+## USAGE:
 
-* Ruby version
+You can use any AI for dev/speed up.
 
-* System dependencies
+## PREREQUISITES:
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# find_me
+Before start please track time.

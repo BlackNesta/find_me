@@ -1,0 +1,19 @@
+!!!
+%html
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport", "maximum-scale" => "1.0", "user-scalable" => "no"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
+    %meta{content: "no-cache", name: "turbo-cache-control"}/
+    %meta{content: "false", name: "turbo-prefetch"}/
+    %title Seladex
+    = stylesheet_link_tag "application", media: "all", :"data-turbo-track" => "reload"
+    = javascript_include_tag "application", :"data-turbo-eval" => "false", :"data-turbo-track" => "reload"
+    = javascript_importmap_tags "application_pin"
+    = csrf_meta_tags
+  %body
+    = turbo_frame_tag "modal", target: "_top"
+    %main.main
+      .content.container-fluid
+        = yield
