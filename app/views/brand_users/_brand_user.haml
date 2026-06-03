@@ -3,10 +3,8 @@
     %span
       %strong= brand_user.user.decorate.display
       - if brand_user.setting&.key.present?
-        %span.badge.text-bg-light.ms-2
-          = brand_user.setting.key
-          - if brand_user.setting.value.present?
-            = ": #{brand_user.setting.value}"
+        - setting = brand_user.setting
+        %span.badge.text-bg-light.ms-2= setting.value.present? ? "#{setting.key}: #{setting.value}" : setting.key
     = button_to "Remove", user_path(brand_user.user, brand_id: @brand.id), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Remove this user?" } }
   = form_with url: membership_setting_path(brand_user.user, brand_id: @brand.id), method: :patch, class: "row g-2 mt-2 align-items-end" do
     - if brand_user.setting&.errors&.any?

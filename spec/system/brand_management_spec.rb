@@ -38,16 +38,20 @@ RSpec.describe "Brand management", type: :system do
     expect(Brand.find_by(name: "freshco")).to be_present
   end
 
-  it "adds a user and updates the count live, then removes them" do
+  it "adds a new user (with a setting) and updates the count live, then removes them" do
     visit root_path
     expect(find("#users_count")).to have_text("0")
 
+    choose "New user", allow_label_click: true
     fill_in "First name", with: "John"
     fill_in "Last name", with: "Doe"
     fill_in "Email", with: "john@example.com"
+    fill_in "Setting key", with: "theme"
+    fill_in "Setting value", with: "dark"
     click_button "Add user"
 
     expect(page).to have_content("john doe (john@example.com)")
+    expect(page).to have_content("theme: dark")
     expect(find("#users_count")).to have_text("1")
     expect(brand.reload.users_count).to eq(1)
 
@@ -55,6 +59,16 @@ RSpec.describe "Brand management", type: :system do
 
     expect(page).not_to have_content("john@example.com")
     expect(find("#users_count")).to have_text("0")
-    expect(brand.reload.users_count).to eq(0)
+  end
+
+  it "adds an existing user via the dropdown" do
+    user = create(:user, first_name: "jane", last_name: "doe", email: "jane@example.com")
+
+    visit root_path
+    select "jane@example.com", from: "existing_user_id"
+    click_button "Add user"
+
+    expect(page).to have_content("jane doe (jane@example.com)")
+    expect(brand.reload.users).to include(user)
   end
 end

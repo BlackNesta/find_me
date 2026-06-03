@@ -17,7 +17,8 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include("jane@example.com")
       expect(response.body).to include("theme")
       expect(response.body).to include("dark")
-      expect(response.body).to include("Add an existing user")
+      expect(response.body).to include("Choose a user")
+      expect(response.body).to include("New user")
     end
   end
 
