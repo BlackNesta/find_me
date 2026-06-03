@@ -28,8 +28,14 @@ RSpec.describe Setting, type: :model do
   describe "validations" do
     it { is_expected.to validate_length_of(:key).is_at_most(255) }
 
-    it "allows a blank key and value" do
-      expect(build(:setting, key: nil, value: nil)).to be_valid
+    it "allows a blank key and value for a membership setting" do
+      expect(build(:setting, settable: create(:brand_user), key: nil, value: nil)).to be_valid
+    end
+
+    it "requires key and value for a brand-level setting" do
+      setting = build(:setting, settable: create(:brand), key: nil, value: nil)
+      expect(setting).not_to be_valid
+      expect(setting.errors.attribute_names).to include(:key, :value)
     end
 
     it "rejects a duplicate key for the same owner" do

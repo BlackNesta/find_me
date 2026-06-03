@@ -4,8 +4,8 @@
     .alert.alert-danger.py-1.mb-2= setting.errors.full_messages.to_sentence
   .row.g-2.align-items-end
     .col
-      = f.text_field :key, placeholder: "Key", class: "form-control"
+      = f.text_field :key, placeholder: "Key", class: "form-control", required: true
     .col
-      = f.text_field :value, placeholder: "Value", class: "form-control"
+      = f.text_field :value, placeholder: "Value", class: "form-control", required: true
     .col-auto
       = f.submit "Add setting", class: "btn btn-outline-primary"

@@ -15,6 +15,14 @@ RSpec.describe "Brand settings", type: :request do
       expect(brand.settings.last.key).to eq("theme")
     end
 
+    it "rejects a blank key or value" do
+      expect {
+        post brand_settings_path, params: { brand_id: brand.id, setting: { key: "", value: "" } }, as: :turbo_stream
+      }.not_to change { brand.settings.count }
+
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
     it "rejects a duplicate key for the same brand" do
       create(:setting, settable: brand, key: "theme")
 
