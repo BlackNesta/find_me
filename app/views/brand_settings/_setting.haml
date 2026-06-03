@@ -1,0 +1,6 @@
+.d-flex.align-items-center.justify-content-between.mb-2{ id: dom_id(setting) }
+  %span
+    %strong= setting.key
+    - if setting.value.present?
+      = ": #{setting.value}"
+  = button_to "Remove", brand_setting_path(setting, brand_id: @brand.id), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Remove this setting?" } }

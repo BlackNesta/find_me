@@ -1,0 +1,6 @@
+- if @created
+  = turbo_stream.append "users", partial: "brand_users/brand_user", locals: { brand_user: @brand_user }
+  = turbo_stream.update "users_count", @brand.users_count.to_s
+  = turbo_stream.update "user_form", partial: "users/form"
+- else
+  = turbo_stream.update "user_form", partial: "users/form"

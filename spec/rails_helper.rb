@@ -44,10 +44,9 @@ RSpec.configure do |config|
     Rails.root.join('spec/fixtures')
   ]
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  # DatabaseCleaner owns cleaning (see below): transactions for fast specs,
+  # truncation for system specs whose browser runs in a separate thread.
+  config.use_transactional_fixtures = false
 
   config.order = :random
 
@@ -86,12 +85,15 @@ RSpec.configure do |config|
   config.include ActiveJob::TestHelper
 
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction # , { except: %w[permissions] }
     DatabaseCleaner.clean_with(:truncation)
-    # Rake::Task["permissions:init"].invoke
   end
 
+  # Fast transaction rollback by default; truncation for system specs because
+  # the Capybara/Selenium server runs in a separate thread and can't see an
+  # uncommitted transaction. The strategy must be chosen before cleaning
+  # starts, so it's set here in the around hook rather than in before(:each).
   config.around(:each) do |example|
+    DatabaseCleaner.strategy = example.metadata[:type] == :system ? :truncation : :transaction
     DatabaseCleaner.cleaning do
       example.run
     end

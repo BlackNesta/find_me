@@ -1,0 +1,27 @@
+= form_with url: users_path, method: :post do |f|
+  = hidden_field_tag :brand_id, @brand.id
+  - if @brand_user&.errors&.any?
+    .alert.alert-danger.py-1.mb-2= @brand_user.errors.full_messages.to_sentence
+
+  .mb-2
+    = label_tag :existing_user_id, "Add an existing user", class: "form-label"
+    = select_tag :existing_user_id,
+                 options_from_collection_for_select(@available_users, :id, :email),
+                 include_blank: "— or create a new user below —",
+                 class: "form-select"
+
+  .row.g-2
+    .col
+      = text_field_tag "user[first_name]", nil, placeholder: "First name", class: "form-control"
+    .col
+      = text_field_tag "user[last_name]", nil, placeholder: "Last name", class: "form-control"
+    .col
+      = text_field_tag "user[email]", nil, placeholder: "Email", class: "form-control"
+
+  .row.g-2.mt-1.align-items-end
+    .col
+      = text_field_tag "setting[key]", nil, placeholder: "Setting key (optional)", class: "form-control"
+    .col
+      = text_field_tag "setting[value]", nil, placeholder: "Setting value (optional)", class: "form-control"
+    .col-auto
+      = button_tag "Add user", class: "btn btn-primary"

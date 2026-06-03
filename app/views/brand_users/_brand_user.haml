@@ -1,0 +1,6 @@
+.d-flex.align-items-center.justify-content-between.mb-2{ id: dom_id(brand_user) }
+  %span
+    = brand_user.user.decorate.display
+    - if brand_user.setting&.key.present?
+      %span.badge.text-bg-light.ms-2= "#{brand_user.setting.key}: #{brand_user.setting.value}"
+  = button_to "Remove", user_path(brand_user.user, brand_id: @brand.id), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Remove this user?" } }

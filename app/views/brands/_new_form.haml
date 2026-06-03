@@ -1,0 +1,6 @@
+= simple_form_for Brand.new, url: brands_path, data: { turbo: false } do |f|
+  .row.g-2.align-items-end
+    .col
+      = f.input :name, label: false, wrapper: false, input_html: { id: "new_brand_name", class: "form-control", placeholder: "New brand" }
+    .col-auto
+      = f.button :submit, "Create brand", class: "btn btn-outline-primary"

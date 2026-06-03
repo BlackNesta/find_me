@@ -1,0 +1,5 @@
+- if @created
+  = turbo_stream.append "brand_settings", partial: "brand_settings/setting", locals: { setting: @setting }
+  = turbo_stream.update "brand_setting_form", partial: "brand_settings/form", locals: { setting: @brand.settings.new }
+- else
+  = turbo_stream.update "brand_setting_form", partial: "brand_settings/form", locals: { setting: @setting }

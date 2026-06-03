@@ -1,0 +1,8 @@
+= turbo_stream.update "brand_status" do
+  - if @brand.errors.any?
+    %span.text-danger= @brand.errors.full_messages.to_sentence
+  - else
+    %span.text-success Saved
+
+- if @brand.errors.empty?
+  = turbo_stream.update dom_id(@brand, :switch), @brand.name

@@ -8,7 +8,7 @@ module SessionsHelper
   protected
 
   def load_brand
-    @brand = Brand.first
+    @brand = params[:brand_id].present? ? Brand.find(params[:brand_id]) : Brand.first
 
     raise StandardError.new("Probably you forgot do something :)") if @brand.nil?
   end
