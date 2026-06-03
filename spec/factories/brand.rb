@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :brand do
-    name { Faker::Company.unique.name }
+    sequence(:name) { |n| "Brand #{n}" }
   end
 end

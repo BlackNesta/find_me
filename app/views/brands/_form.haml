@@ -1,0 +1,5 @@
+= simple_form_for @brand, url: brand_path(brand_id: @brand.id), method: :patch, html: { data: { controller: "autosave", action: "submit->autosave#submit" } } do |f|
+  = f.input :name,
+            label: "Brand name",
+            input_html: { autocomplete: "off", data: { autosave_target: "field", action: "input->autosave#save blur->autosave#submit" } }
+  #brand_status.form-text

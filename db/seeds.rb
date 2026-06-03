@@ -8,4 +8,4 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Brand.create!(name: "Apple") unless Brand.exists?(name: "Apple")
+Brand.where("lower(name) = lower(?)", "Apple").first_or_create!(name: "Apple")

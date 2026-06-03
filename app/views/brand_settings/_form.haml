@@ -1,0 +1,11 @@
+= form_with model: setting, url: brand_settings_path do |f|
+  = hidden_field_tag :brand_id, @brand.id
+  - if setting.errors.any?
+    .alert.alert-danger.py-1.mb-2= setting.errors.full_messages.to_sentence
+  .row.g-2.align-items-end
+    .col
+      = f.text_field :key, placeholder: "Key", class: "form-control", required: true
+    .col
+      = f.text_field :value, placeholder: "Value", class: "form-control", required: true
+    .col-auto
+      = f.submit "Add setting", class: "btn btn-outline-primary"

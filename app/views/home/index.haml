@@ -1,31 +1,39 @@
-.container
-  .row
-    .col
+.container.py-4
+  - flash.each do |type, message|
+    .alert.mt-3{ class: flash_alert_class(type) }= message
+
+  .row.g-4
+    .col-lg-4
       .card
         .card-body
-          .card-title
-            %h1 Task
+          %h2.card-title Brands
+          - if @brands.many?
+            .list-group.mb-3#brand_switcher
+              - @brands.each do |brand|
+                = link_to brand.name, root_path(brand_id: brand.id), id: dom_id(brand, :switch), class: brand_nav_link_class(brand, @brand)
+          = render "brands/new_form"
 
-            %p
-              Try to find bug in brand model.
-            %p
-              Add new column to brand:
-              %b users_count
-            %p
-              Brand require two new models.
-            %p
-              First model is setting. Brand has many settings. Model should have this fields:
-              %b key, value
-            %p
-              Second model is users. Brand has multiple users. Users have multiple brands. Model should have this fields:
-              %b first_name, last_name, email
-            %p
-              UPD: each user should have one setting record for each brand.
-            %p
-              brand name, user first_name, user last_name, user email should be saved without spaces, in down case. If any field include "test" this part should be cutted.
-            %p
-              On root page add input with brand name. Allow change brand name with autosave.
-            %p
-              Add ability to create/destroy new users for brand. Update users_count field.
-            %p
-              %b You must use only existing dependencies.
+    .col-lg-8
+      .card.mb-4
+        .card-body
+          %h2.card-title Brand
+          = render "brands/form"
+
+      .card.mb-4
+        .card-body
+          %h2.card-title Settings
+          #brand_settings
+            = render partial: "brand_settings/setting", collection: @brand_settings, as: :setting
+          #brand_setting_form
+            = render "brand_settings/form", setting: @brand.settings.new
+
+      .card
+        .card-body
+          %h2.card-title Users
+          %p.mb-3
+            Total:
+            %span#users_count= @brand.users_count
+          #users
+            = render @brand_users
+          #user_form
+            = render "users/form"

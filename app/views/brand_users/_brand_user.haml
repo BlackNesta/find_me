@@ -1,0 +1,17 @@
+.border.rounded.p-2.mb-2{ id: dom_id(brand_user) }
+  .d-flex.align-items-center.justify-content-between
+    %span
+      %strong= brand_user.user.decorate.display
+      - if brand_user.setting&.key.present?
+        - setting = brand_user.setting
+        %span.badge.text-bg-light.ms-2= setting.value.present? ? "#{setting.key}: #{setting.value}" : setting.key
+    = button_to "Remove", user_path(brand_user.user, brand_id: @brand.id), method: :delete, class: "btn btn-sm btn-outline-danger", form: { data: { turbo_confirm: "Remove this user?" } }
+  = form_with url: membership_setting_path(brand_user.user, brand_id: @brand.id), method: :patch, class: "row g-2 mt-2 align-items-end" do
+    - if brand_user.setting&.errors&.any?
+      .col-12.text-danger.small= brand_user.setting.errors.full_messages.to_sentence
+    .col
+      = text_field_tag "setting[key]", brand_user.setting&.key, placeholder: "Setting key", class: "form-control form-control-sm"
+    .col
+      = text_field_tag "setting[value]", brand_user.setting&.value, placeholder: "Setting value", class: "form-control form-control-sm"
+    .col-auto
+      = submit_tag "Save", class: "btn btn-sm btn-outline-secondary"

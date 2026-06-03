@@ -1,0 +1,32 @@
+- failed = @brand_user && !@brand_user.persisted?
+
+= form_with url: users_path, method: :post, html: { data: { controller: "user-source" } } do |f|
+  = hidden_field_tag :brand_id, @brand.id
+  - if failed && @brand_user.errors.any?
+    .alert.alert-danger.py-1.mb-2= @brand_user.errors.full_messages.to_sentence
+
+  .mb-3
+    = label_tag :existing_user_id, "Add an existing user", class: "form-label"
+    = select_tag :existing_user_id,
+                 options_from_collection_for_select(@available_users, :id, :email),
+                 include_blank: "— or create a new user below —",
+                 class: "form-select",
+                 data: { user_source_target: "select", action: "change->user-source#toggle" }
+
+  .mb-3{ data: { user_source_target: "new" } }
+    .row.g-2
+      .col
+        = text_field_tag "user[first_name]", (failed ? @brand_user.user&.first_name : nil), placeholder: "First name", class: "form-control"
+      .col
+        = text_field_tag "user[last_name]", (failed ? @brand_user.user&.last_name : nil), placeholder: "Last name", class: "form-control"
+      .col
+        = text_field_tag "user[email]", (failed ? @brand_user.user&.email : nil), placeholder: "Email", class: "form-control"
+
+  %label.form-label.small.text-muted.mb-1 Setting (optional)
+  .row.g-2.align-items-end
+    .col
+      = text_field_tag "setting[key]", nil, placeholder: "Setting key", class: "form-control"
+    .col
+      = text_field_tag "setting[value]", nil, placeholder: "Setting value", class: "form-control"
+    .col-auto
+      = button_tag "Add user", class: "btn btn-primary"
