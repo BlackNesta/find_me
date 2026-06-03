@@ -6,14 +6,17 @@ RSpec.describe "Users", type: :request do
   let!(:brand) { create(:brand) }
 
   describe "GET /" do
-    it "renders the brand's users and the add-user form" do
+    it "renders the brand's users with their setting and the add-user form" do
       user = create(:user, email: "jane@example.com")
-      create(:brand_user, brand: brand, user: user)
+      brand_user = create(:brand_user, brand: brand, user: user)
+      create(:setting, settable: brand_user, key: "theme", value: "dark")
 
       get root_path
 
       expect(response).to have_http_status(:ok)
       expect(response.body).to include("jane@example.com")
+      expect(response.body).to include("theme")
+      expect(response.body).to include("dark")
       expect(response.body).to include("Add an existing user")
     end
   end

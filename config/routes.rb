@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :brands, only: :create
   resources :users, only: %i[create destroy]
   resources :brand_settings, only: %i[create destroy]
+  resources :membership_settings, only: :update
 
   # Defines the root path route ("/")
   root "home#index"
