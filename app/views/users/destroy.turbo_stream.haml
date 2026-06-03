@@ -1,2 +1,3 @@
-= turbo_stream.remove @brand_user
+= turbo_stream.remove @removed
 = turbo_stream.update "users_count", @brand.users_count.to_s
+= turbo_stream.update "user_form", partial: "users/form"

@@ -1,23 +1,17 @@
 - failed = @brand_user && !@brand_user.persisted?
-- new_mode = failed && @brand_user.user&.new_record?
 
 = form_with url: users_path, method: :post, html: { data: { controller: "user-source" } } do |f|
   = hidden_field_tag :brand_id, @brand.id
   - if failed && @brand_user.errors.any?
     .alert.alert-danger.py-1.mb-2= @brand_user.errors.full_messages.to_sentence
 
-  .btn-group.mb-3{ role: "group" }
-    %input.btn-check{ type: "radio", name: "source", id: "source_existing", value: "existing", autocomplete: "off", checked: !new_mode, data: { user_source_target: "radio", action: "change->user-source#toggle" } }
-    %label.btn.btn-outline-secondary{ for: "source_existing" } Existing user
-    %input.btn-check{ type: "radio", name: "source", id: "source_new", value: "new", autocomplete: "off", checked: new_mode, data: { user_source_target: "radio", action: "change->user-source#toggle" } }
-    %label.btn.btn-outline-secondary{ for: "source_new" } New user
-
-  .mb-3{ data: { user_source_target: "existing" } }
-    = label_tag :existing_user_id, "Choose a user", class: "form-label"
+  .mb-3
+    = label_tag :existing_user_id, "Add an existing user", class: "form-label"
     = select_tag :existing_user_id,
                  options_from_collection_for_select(@available_users, :id, :email),
-                 include_blank: "Select a user",
-                 class: "form-select"
+                 include_blank: "— or create a new user below —",
+                 class: "form-select",
+                 data: { user_source_target: "select", action: "change->user-source#toggle" }
 
   .mb-3{ data: { user_source_target: "new" } }
     .row.g-2

@@ -17,8 +17,7 @@ RSpec.describe "Users", type: :request do
       expect(response.body).to include("jane@example.com")
       expect(response.body).to include("theme")
       expect(response.body).to include("dark")
-      expect(response.body).to include("Choose a user")
-      expect(response.body).to include("New user")
+      expect(response.body).to include("Add an existing user")
     end
   end
 
@@ -87,6 +86,8 @@ RSpec.describe "Users", type: :request do
 
       expect(User.exists?(user.id)).to be(true)
       expect(brand.users).not_to include(user)
+      # the removed user is now available again in the add-user dropdown
+      expect(response.body).to include("jane@example.com")
     end
 
     it "does not affect the user's membership in other brands" do

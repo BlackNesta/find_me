@@ -16,9 +16,10 @@ class UsersController < BaseController
 
   def destroy
     user = @brand.users.find(params[:id])
-    @brand_user = @brand.brand_users.find_by!(user: user)
-    @brand_user.destroy
+    @removed = @brand.brand_users.find_by!(user: user)
+    @removed.destroy
     @brand.reload
+    @available_users = available_users
 
     render :destroy
   end
