@@ -59,7 +59,7 @@ RSpec.describe "Brand management", type: :system do
     within("#users") { expect(page).not_to have_content("john@example.com") }
     expect(find("#users_count")).to have_text("0")
     # the removed user is selectable again in the dropdown
-    expect(page).to have_select("existing_user_id", with_options: ["john@example.com"])
+    expect(page).to have_select("existing_user_id", with_options: [ "john@example.com" ])
   end
 
   it "adds an existing user via the dropdown" do
