@@ -118,7 +118,7 @@ RSpec.describe Brand, type: :model do
     it "rejects a case-insensitive duplicate at the DB layer (bypassing the model)" do
       now = Time.current
       expect {
-        Brand.insert_all!([{ name: "apple", created_at: now, updated_at: now }])
+        Brand.insert_all!([ { name: "apple", created_at: now, updated_at: now } ])
       }.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end

@@ -9,7 +9,7 @@ class CreateSettings < ActiveRecord::Migration[8.0]
     end
 
     # One key per owner.
-    add_index :settings, [:settable_type, :settable_id, :key], unique: true,
+    add_index :settings, [ :settable_type, :settable_id, :key ], unique: true,
               name: "index_settings_on_settable_and_key"
   end
 end

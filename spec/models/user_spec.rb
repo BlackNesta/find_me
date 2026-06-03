@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
     it "rejects a case-insensitive duplicate email at the DB layer (bypassing the model)" do
       now = Time.current
       expect {
-        User.insert_all!([{ first_name: "ada", last_name: "lovelace", email: "JANE@example.com", created_at: now, updated_at: now }])
+        User.insert_all!([ { first_name: "ada", last_name: "lovelace", email: "JANE@example.com", created_at: now, updated_at: now } ])
       }.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end

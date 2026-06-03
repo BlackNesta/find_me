@@ -25,7 +25,7 @@ RSpec.describe AddUserToBrand do
 
   it "normalizes the new user's attributes" do
     brand_user = add(user_params: { first_name: " Test John ", last_name: "Do e", email: "John@Example.com" })
-    expect([brand_user.user.first_name, brand_user.user.last_name, brand_user.user.email]).to eq(["john", "doe", "john@example.com"])
+    expect([ brand_user.user.first_name, brand_user.user.last_name, brand_user.user.email ]).to eq([ "john", "doe", "john@example.com" ])
   end
 
   it "links an existing user selected by id without creating a new one" do

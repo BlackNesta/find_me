@@ -35,7 +35,7 @@ RSpec.describe "Users", type: :request do
         .and change(Setting, :count).by(1)
 
       expect(response).to have_http_status(:ok)
-      expect(brand.users.pluck(:email)).to eq(["john@example.com"])
+      expect(brand.users.pluck(:email)).to eq([ "john@example.com" ])
     end
 
     it "links an existing user chosen from the dropdown" do

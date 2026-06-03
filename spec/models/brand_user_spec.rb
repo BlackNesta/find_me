@@ -34,7 +34,7 @@ RSpec.describe BrandUser, type: :model do
     it "enforces the unique index at the DB layer (bypassing the model)" do
       now = Time.current
       expect {
-        BrandUser.insert_all!([{ brand_id: brand.id, user_id: user.id, created_at: now, updated_at: now }])
+        BrandUser.insert_all!([ { brand_id: brand.id, user_id: user.id, created_at: now, updated_at: now } ])
       }.to raise_error(ActiveRecord::RecordNotUnique)
     end
   end

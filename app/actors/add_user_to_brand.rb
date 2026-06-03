@@ -29,7 +29,7 @@ class AddUserToBrand < Actor
   end
 
   def gather_errors
-    [brand_user.user, brand_user.setting].compact.each do |record|
+    [ brand_user.user, brand_user.setting ].compact.each do |record|
       record.errors.full_messages.each { |message| brand_user.errors.add(:base, message) }
     end
   end
